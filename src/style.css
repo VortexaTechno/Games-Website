@@ -1,0 +1,556 @@
+/* ── Tailwind CSS v4 ── */
+@import "tailwindcss";
+
+/* ── AOS (Animate On Scroll) ── */
+@import "aos/dist/aos.css";
+
+/* ── Swiper ── */
+@import "swiper/swiper-bundle.css";
+
+/* ═══════════════════════════════════════════════
+   🎨 Design System — Theme Tokens
+   ═══════════════════════════════════════════════ */
+@theme {
+  /* ── Colors ── */
+  --color-background: #050816;
+  --color-primary: #7c3aed;
+  --color-secondary: #06b6d4;
+  --color-text: #ffffff;
+  --color-muted: #94a3b8;
+  --color-surface: rgba(255, 255, 255, 0.05);
+  --color-border: rgba(255, 255, 255, 0.1);
+}
+
+/* ═══════════════════════════════════════════════
+   📐 Base Reset & Global Styles
+   ═══════════════════════════════════════════════ */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: "Outfit", sans-serif;
+  background-color: var(--color-background, #050816);
+  color: var(--color-text, #ffffff);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#app {
+  min-height: 100svh;
+}
+
+/* ═══════════════════════════════════════════════
+   ✨ Selection
+   ═══════════════════════════════════════════════ */
+::selection {
+  background-color: #7c3aed;
+  color: #ffffff;
+}
+
+/* ═══════════════════════════════════════════════
+   🖱️ Scrollbar Styling
+   ═══════════════════════════════════════════════ */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #050816;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #7c3aed;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #6d28d9;
+}
+
+/* ═══════════════════════════════════════════════
+   🧩 Navbar Specific Styles
+   ═══════════════════════════════════════════════ */
+
+/* ── Mobile Drawer Smooth Slide ── */
+#mobile-drawer {
+  will-change: transform;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+#drawer-overlay {
+  will-change: opacity;
+}
+
+/* ── Navbar Scroll Transition ── */
+#navbar {
+  will-change: transform, background-color;
+  backface-visibility: hidden;
+}
+
+/* ── Navbar active link indicator animation ── */
+.active-dot {
+  animation: dotFadeIn 0.3s ease forwards;
+}
+
+@keyframes dotFadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) scale(0);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+  }
+}
+
+/* ── Drawer link hover slide effect ── */
+.drawer-link i {
+  transition: transform 0.3s ease;
+}
+
+.drawer-link:hover i {
+  transform: translateX(4px);
+}
+
+/* ── Navbar link underline effect ── */
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 60%;
+  height: 2px;
+  background: linear-gradient(to right, #7c3aed, #06b6d4);
+  border-radius: 9999px;
+  transition: transform 0.3s ease;
+}
+
+.nav-link:hover::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+/* ═══════════════════════════════════════════════
+   🧩 Reusable Utility Classes
+   ═══════════════════════════════════════════════ */
+
+/* ── Glassmorphism ── */
+@utility glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ── Gradient Text ── */
+@utility text-gradient {
+  background: linear-gradient(to right, #7c3aed, #06b6d4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Default Transition ── */
+@utility transition-default {
+  transition: all 0.3s ease;
+}
+
+/* ── Glow Effect ── */
+@utility glow-primary {
+  box-shadow: 0 0 20px rgba(124, 58, 237, 0.4);
+}
+
+@utility glow-secondary {
+  box-shadow: 0 0 20px rgba(6, 182, 212, 0.4);
+}
+
+/* ── Flex Center ── */
+@utility flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ═══════════════════════════════════════════════
+   🎯 Hero Section Styles
+   ═══════════════════════════════════════════════ */
+
+/* ── Glow Orb Animations ── */
+@keyframes glowPulse {
+  0%, 100% {
+    opacity: 0.2;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes glowFloat {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(30px, -20px);
+  }
+  50% {
+    transform: translate(-10px, 30px);
+  }
+  75% {
+    transform: translate(-30px, -10px);
+  }
+}
+
+.hero-glow {
+  will-change: transform, opacity;
+}
+
+/* ── Floating Shape Animations ── */
+@keyframes floatShape1 {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate(20px, -30px) rotate(90deg);
+  }
+  50% {
+    transform: translate(-15px, 20px) rotate(180deg);
+  }
+  75% {
+    transform: translate(25px, 15px) rotate(270deg);
+  }
+}
+
+@keyframes floatShape2 {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  33% {
+    transform: translate(-25px, -20px) rotate(120deg);
+  }
+  66% {
+    transform: translate(15px, 25px) rotate(240deg);
+  }
+}
+
+.floating-shape {
+  will-change: transform;
+}
+
+/* ── Phone Mockup Styles ── */
+.phone-mockup {
+  filter: drop-shadow(0 20px 60px rgba(0, 0, 0, 0.5));
+}
+
+.phone-mockup .absolute.-inset-4 {
+  animation: phoneGlow 4s ease-in-out infinite;
+}
+
+@keyframes phoneGlow {
+  0%, 100% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+/* ── Phone Screen (prevents overflow) ── */
+.phone-screen {
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  mask-image: radial-gradient(white, black);
+}
+
+/* ── Hero responsive adjustments ── */
+@media (max-width: 1023px) {
+  .phone-mockup {
+    transform: scale(0.95);
+  }
+}
+
+@media (max-width: 639px) {
+  .phone-mockup {
+    transform: scale(0.9);
+  }
+}
+
+/* ═══════════════════════════════════════════════
+   🎯 About Section Styles
+   ═══════════════════════════════════════════════ */
+
+/* ── About Phone Mockup Styles ── */
+.about-section-video .absolute.-inset-4 {
+  animation: aboutPhoneGlow 4s ease-in-out infinite;
+}
+
+@keyframes aboutPhoneGlow {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 0.45; }
+}
+
+/* ── About Video Styles ── */
+.about-phone-video {
+  will-change: transform;
+  animation: aboutFloatVideo 6s ease-in-out infinite;
+  background: transparent;
+}
+
+@keyframes aboutFloatVideo {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* ── About Floating Decorative Shape Animations ── */
+@keyframes aboutFloat1 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(25px, -20px) rotate(60deg); }
+  50% { transform: translate(-10px, 25px) rotate(120deg); }
+  75% { transform: translate(-20px, -15px) rotate(180deg); }
+}
+
+@keyframes aboutFloat2 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(-20px, -25px) rotate(90deg); }
+  66% { transform: translate(15px, 20px) rotate(180deg); }
+}
+
+.about-floating {
+  will-change: transform;
+}
+
+/* ── About Feature Cards ── */
+.about-feature {
+  will-change: transform, box-shadow;
+}
+
+/* ── About Badge Pulse ── */
+.about-badge {
+  will-change: transform;
+}
+
+/* ── About responsive adjustments ── */
+@media (max-width: 1023px) {
+  .about-phone,
+  .about-section-video {
+    transform: scale(0.95);
+  }
+}
+
+@media (max-width: 639px) {
+  .about-phone,
+  .about-section-video {
+    transform: scale(0.9);
+  }
+}
+
+/* ── About Stats count pulse animation ── */
+@keyframes statCountUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ═══════════════════════════════════════════════
+   🎯 Categories Section Styles
+   ═══════════════════════════════════════════════ */
+
+/* ── Category Card ── */
+.category-card {
+  will-change: transform, box-shadow, border-color;
+}
+
+/* ── Category Icon Box Scale ── */
+.category-card .inline-flex {
+  will-change: transform, background-color, border-color;
+}
+
+/* ═══════════════════════════════════════════════
+   🎯 Gallery Section Styles — Clean Image Grid
+   ═══════════════════════════════════════════════ */
+
+.gallery-image {
+  will-change: transform, box-shadow;
+}
+
+/* ── Soft purple glow on hover ── */
+.gallery-image:hover {
+  box-shadow: 0 0 30px rgba(124, 58, 237, 0.25), 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* ═══════════════════════════════════════════════
+   🎯 Game Showcase Section Styles
+   ═══════════════════════════════════════════════ */
+
+/* ── Showcase Image Wrapper ── */
+.showcase-image-wrapper {
+  will-change: transform, box-shadow;
+}
+
+.showcase-image-wrapper:hover {
+  box-shadow: 0 0 40px rgba(124, 58, 237, 0.2), 0 12px 48px rgba(0, 0, 0, 0.4);
+}
+
+/* ── Showcase Image ── */
+.showcase-image {
+  aspect-ratio: 16/10;
+  will-change: transform;
+}
+
+/* ── Showcase Card ── */
+.showcase-card {
+  will-change: transform, box-shadow;
+}
+
+/* ── Showcase Badge Pulse ── */
+.showcase-badge {
+  will-change: transform;
+}
+
+/* ── Showcase responsive adjustments ── */
+@media (max-width: 1023px) {
+  .showcase-image-wrapper {
+    max-width: 90%;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 639px) {
+  .showcase-image-wrapper {
+    max-width: 100%;
+  }
+
+  .showcase-image {
+    aspect-ratio: 16/9;
+  }
+}
+
+/* ═══════════════════════════════════════════════
+   🎯 Contact Section Styles
+   ═══════════════════════════════════════════════ */
+
+/* ── Contact Input Fields ── */
+.contact-input {
+  will-change: border-color, background-color, box-shadow, transform;
+}
+
+.contact-input:focus {
+  outline: none;
+}
+
+/* ── Contact Form Textarea ── */
+#contactMessage {
+  min-height: 100px;
+}
+
+/* ── Contact Card ── */
+.contact-card {
+  will-change: transform, box-shadow, border-color;
+}
+
+/* ── Submit Button ── */
+.submit-btn {
+  will-change: transform, box-shadow;
+}
+
+.submit-btn:active {
+  transform: scale(0.98);
+}
+
+.submit-btn:disabled:active {
+  transform: none;
+}
+
+/* ── Success / Error Message Animations ── */
+#contactSuccess,
+#contactError {
+  animation: slideDown 0.4s ease forwards;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Contact Form Wrapper ── */
+.contact-form-wrapper .glass {
+  will-change: transform;
+}
+
+@media (max-width: 1023px) {
+  #contact .contact-card {
+    text-align: left;
+  }
+}
+
+/* ═══════════════════════════════════════════════
+   🎯 Footer Section Styles
+   ═══════════════════════════════════════════════ */
+
+/* ── Footer Link Hover Underline Effect ── */
+.footer-link {
+  position: relative;
+  width: fit-content;
+}
+
+.footer-link::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background: linear-gradient(to right, #7c3aed, #06b6d4);
+  border-radius: 9999px;
+  transition: width 0.3s ease;
+}
+
+.footer-link:hover::after {
+  width: 100%;
+}
+
+/* ── Social Icon Hover Animation ── */
+.social-link {
+  will-change: transform, background-color, border-color, color;
+}
+
+.social-link:hover {
+  transform: translateY(-2px) scale(1.1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* ── Footer Responsive Adjustments ── */
+@media (max-width: 1023px) {
+  #footer .grid {
+    text-align: center;
+  }
+
+  #footer .max-w-sm {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  #footer .flex-wrap {
+    justify-content: center;
+  }
+
+  #footer ul {
+    align-items: center;
+  }
+
+  #footer .border-t .flex-col {
+    text-align: center;
+  }
+}
